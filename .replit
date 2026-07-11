@@ -1,0 +1,27 @@
+modules = ["nodejs-24"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+VAPID_PRIVATE_KEY = "YFGuXqjaJl-2PNtchk7NnEnLnAZgwzWc74wf7lsMknc"
+VAPID_PUBLIC_KEY = "BEA9WW76QTZgHGPQq_6CnxvhBweb_oQA6UyR3id1Mn3CalZIaN-DacLJKjb7YZl8-Nze2aGmrKo2Q4oC6MVP72Y"
+VAPID_SUBJECT = "mailto:notifications@pixlr.app"

@@ -1,0 +1,23 @@
+kind = "web"
+previewPath = "/"
+title = "Pixlr"
+version = "1.0.0"
+id = "artifacts/instagram-clone"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22622
+
+[services.development]
+run = "pnpm --filter @workspace/instagram-clone run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/instagram-clone", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/instagram-clone/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
